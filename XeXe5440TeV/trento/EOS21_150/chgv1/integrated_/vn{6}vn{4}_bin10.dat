@@ -1,0 +1,11 @@
+Cent%	 dNdy	 Npart	 v2{6}/v2{4} err	 v3{6}/v3{4} err	 v4{6}/v4{4} err
+5	625.347	226.5	nan nan nan nan nan nan 
+15	425.73	168.5	nan nan nan nan nan nan 
+25	285.914	121	nan nan nan nan nan nan 
+35	187.639	84	nan nan nan nan nan nan 
+45	115.583	55.5	nan nan nan nan nan nan 
+55	66.7145	34.5	nan nan nan nan nan nan 
+65	36.2826	20	0.859357 0.0304156 nan nan nan nan 
+75	20.2641	10.5	nan nan nan nan nan nan 
+85	6.78735	5	nan nan nan nan nan nan 
+95	nan	2.5	nan nan nan nan nan nan 
