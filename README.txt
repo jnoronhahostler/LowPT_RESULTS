@@ -1,3 +1,6 @@
+# LowPT_RESULTS
+Hydrodynamic results from v-USPhydro across multiple collisions and energies
+
 These calculations were made with a few different intial condition models and based on a few different papers so please be careful to make sure to cite the papers correctly when using these results.  The papers where the calculations were made are shown first and then below that you will find the model setup, assumptions, parameters, and appropriate papers to cite for each component of the model.
 
 
@@ -33,47 +36,7 @@ PDG16+/2+1[WB] from S. Borsanyi et al., Phys. Lett. B730, 99 (2014)     eta/s=0.
 PDG16+/2+1+1[WB] from S. Borsanyi et al., Nature 539, 69 (2016)       eta/s=0.47, tau0=0.6 fm, TFO=150 MeV
 
 	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-Differential flow observables:
-
-- The format is SPobs_CENsbvnc.dat where SP=species, obs=observable (e.g. avg, rn etc), CEN=centrality where 2=0-5%, 7=5-10%, 5=0-10%, and the rest are in 10% centrality bins with the number in the middle (e.g. 15=10-20%).  All calculations are done with the scalar product unless noted below.
-
--SPavg_CENsbvnc.dat contains:
-
-	pT dN/dydpT v1(pT) psi1(PT) ... v6(pT) psi6(pT)
-
--SPcum_CENsbvnc.dat contains the differential cumulants (NOT scalar product):
-
-	pT v1{2}(pT) v1{4}(pT) ... v6{2}(pT) v16{4}(pT) 
-	
--SPscm_CENsbvnc.dat contains the differential symmetric cumulants (NOT scalar product):
-
-	pT sc(3,2)(pT) sc(34,2)(pT) sc(4,3)(pT)
-	
--SPrn_CENsbvnc.dat contains the factorization breaking:
-
-	r2
-	pT
-	.
-	. rn
-	. rn rn
-	r3
-	pT
-	.
-	. rn
-	. rn rn
-	r4
-	pT
-	.
-	. rn
-	. rn rn
-	where the values from left to right indicate biggest difference in pT <-> smallest difference in pT
-	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,53 +54,60 @@ The following files are included in each individual folder. The calculations are
 
 	---------------------------
 
-vn2err.dat*
+vn{m}_binC.dat*   
 
-Contains v_n{2} for v1-v6 in the order
-	centrality v1{2} v1{2}_error v2{2} v2{2}_error ... v6{2} v6{2}_error
+Contains v_n{m} for v1-v6 in the order where m=number of correlated particles, C=width of centrality bins.  If m>4 then v_n{m}^m is shown.
+	centrality dNdy Npart v1{2} v1{2}_error v2{2} v2{2}_error ... v6{2} v6{2}_error
 	
 	---------------------------
 
-vns1bin5.dat*
+vn{m+2}vn{m}_binC.dat*
 
-Contains v_n{4}^4 and v_n{6}^6 for v1-v6 in 5% bins in the order: 
-	centrality v1{4}^4 v1{4}^4_error v2{4}^4 v2{4}^4_error ... v6{4}^4 v6{4}^4_error v1{6}^6 v1{6}^6_error v2{6}^6 v2{6}^6_error ... v6{6}^6 v6{6}^6_error
+Contains v_n{m+2}/v_n{m} for v1-v6 in the order where m=number of correlated particles, C=width of centrality bins: 
+	centrality dNdy Npart  v_1{m+2}/v_1{m} v_1{m+2}/v_1{m}_error v_2{m+2}/v_2{m} v_2{m+2}/v_2{m}_error... v_6{m+2}/v_6{m} v_6{m+2}/v_6{m}_error
 	
 		---------------------------
 
-vns1.dat*
+Mnpart_binC.dat*
 
-Contains v_n{4}/v_n{2} and v_n{6}/v_n{4} for v1-v6 in 5% bins: 
-	centrality v_1{4}/v_1{2} err ... v_6{4}/v_6{2} err  v_1{6}/v_1{4} err ... v_6{6}/v_6{4} err
+Contains multiplicity vs. dNdy: 
+	centrality dNdy ignore
 	
 		
 		---------------------------
 
-vns1bin.dat*
+nonlin_binC.dat*
 
-Contains v_n{4}^4, v_n{6}^6, and v2{2}/v_3{2} for v1-v6 in 1% bins: 
-	centrality v_1{4} err ... v_6{4} err  v_1{6} err ... v_6{6} err  v2{2}/v3{2} err
+Contains linear and non-linear mapping coefficients: 
+	Cent%	 dNdy	 Npart	 gamma2 err 	 k12 err 	 k22 err	 gamma3 err 	 k13 err 	 k23 err
 
 	---------------------------
 	
-eccs.dat*
+predictcumu_binC.dat*
 
-Contains calculations from the corresponding eccentricities for ecc_n{4}/ecc_n{2} and ecc_n{6}/ecc_n{4}* are shown in eccs.dat in 5% centrality bins where
-	centrality ecc2{4}/ecc2{2} ecc2{4}/ecc2{2}_error ecc3{4}/ecc3{2} ecc3{4}/ecc3{2}_error ecc2{6}/ecc2{4} ecc2{6}/ecc2{4}_error ecc3{6}/ecc3{4}_error
+Contains the comparison between actual hydrodynamic calculations for v2{4}/v2{2} versus predictions from linear response and linear+cubic response based on the mapping coefficients found in nonlin_binC.dat and the eccentrcities.
+	Cent%	 dNdy	 Npart	 hydro 	 linear 	 linear+cubic
 	
 	---------------------------
 		
-eccs1bin.dat*
+ultracen_BIN.dat*
 
-Contains calculations from the corresponding eccentricities for ecc_n{4}/ecc_n{2} and ecc_n{6}/ecc_n{4}* are shown in eccs.dat in 1% centrality bins where
-	centrality ecc2{4}/ecc2{2} ecc2{4}/ecc2{2}_error ecc3{4}/ecc3{2} ecc3{4}/ecc3{2}_error ecc2{6}/ecc2{4} ecc2{6}/ecc2{4}_error ecc3{6}/ecc3{4}_error
+Contains predictions for the scaling of vn{2}^i/vn{2} vs. M^i/M in ultracentral collisions either binned by BIN=entropy or Npart from TRENTO. 
+	M^i/M v2{2}^i/v2{2} err v3{2}^i/v3{2} err ignore Rest!
+	
+	---------------------------
+  
+  ultracen_BINCGC.dat*
+
+Contains predictions for the scaling of vn{2}^i/vn{2} vs. M^i/M in ultracentral collisions either binned by BIN=entropy or Npart from CGC calculations. 
+	M^i/M v2{2}^i/v2{2} err v3{2}^i/v3{2} err ignore Rest!
 	
 	---------------------------
 	
-eccs1bin.dat
+eccs1bin.dat (COMING SOON)
 
 Contains calculations from the corresponding eccentricities for ecc_n{4}/ecc_n{2} and ecc_n{6}/ecc_n{4}* are shown in eccs.dat where
-	centrality ecc2{4}/ecc2{2} ecc2{4}/ecc2{2}_error ecc3{4}/ecc3{2} ecc3{4}/ecc3{2}_error ecc2{6}/ecc2{4} ecc2{6}/ecc2{4}_error ecc3{6}/ecc3{4}_error
+	centrality dNdy Npart ecc2{4}/ecc2{2} ecc2{4}/ecc2{2}_error ecc3{4}/ecc3{2} ecc3{4}/ecc3{2}_error ecc2{6}/ecc2{4} ecc2{6}/ecc2{4}_error ecc3{6}/ecc3{4}_error
 	
 	---------------------------
 	
@@ -180,7 +150,7 @@ Contains symmetric cumulants with XX harmonic, normalized
 Qs.dat
 
 Contains linear Pearson Coefficients of ecc2-ecc4-> v2-v4
-	centrality Q1*** Q1_err*** Q2 Q2_err Q3 Q3_err Q4 Q4_err
+	centrality dNdy Npart Q1*** Q1_err*** Q2 Q2_err Q3 Q3_err Q4 Q4_err
 	
 	---------------------------
 	
@@ -195,3 +165,46 @@ Note that due to the limited number of statistics some centralities give imagina
 ** Centrality binning and multiplicity reweighing ARE considered here. 
 
 *** ignore for now	
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Differential flow observables (COMING SOON):
+
+- The format is SPobs_CENsbvnc.dat where SP=species, obs=observable (e.g. avg, rn etc), CEN=centrality where 2=0-5%, 7=5-10%, 5=0-10%, and the rest are in 10% centrality bins with the number in the middle (e.g. 15=10-20%).  All calculations are done with the scalar product unless noted below.
+
+-SPavg_CENsbvnc.dat contains:
+
+	pT dN/dydpT v1(pT) psi1(PT) ... v6(pT) psi6(pT)
+
+-SPcum_CENsbvnc.dat contains the differential cumulants (NOT scalar product):
+
+	pT v1{2}(pT) v1{4}(pT) ... v6{2}(pT) v16{4}(pT) 
+	
+-SPscm_CENsbvnc.dat contains the differential symmetric cumulants (NOT scalar product):
+
+	pT sc(3,2)(pT) sc(34,2)(pT) sc(4,3)(pT)
+	
+-SPrn_CENsbvnc.dat contains the factorization breaking:
+
+	r2
+	pT
+	.
+	. rn
+	. rn rn
+	r3
+	pT
+	.
+	. rn
+	. rn rn
+	r4
+	pT
+	.
+	. rn
+	. rn rn
+	where the values from left to right indicate biggest difference in pT <-> smallest difference in pT
+	
